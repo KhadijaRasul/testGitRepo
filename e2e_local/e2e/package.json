@@ -1,0 +1,29 @@
+{
+  "name": "testprotractorpom",
+  "version": "1.0.0",
+  "description": "testProtractor",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "pretest": "npm run tsc",
+    "test": "protractor ./output/conf.js",
+    "citest": "./start_tests.sh",
+    "ciwebdriver-update": "webdriver-manager update --versions.chrome 2.39",
+    "webdriver-update": "webdriver-manager update",
+    "webdriver-clean": "webdriver-manager clean"
+  },
+  "author": "Khadija",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jasmine": "^2.8.9",
+    "protractor-jasmine2-html-reporter": "0.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^11.10.4",
+    "jasmine": "^3.3.0",
+    "jasmine-spec-reporter": "^4.2.1",
+    "protractor": "^5.4.2",
+    "protractor-html-screenshot-reporter": "0.0.21",
+    "typescript": "^3.3.4"
+  }
+}

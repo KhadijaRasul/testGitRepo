@@ -1,0 +1,9 @@
+
+{
+  "Tenant1": {
+    "subdomain": "enttesttenant",
+    "username": "admin",
+    "password": "admin",
+    "widgetName": "Asset Offline Count"
+  }
+}

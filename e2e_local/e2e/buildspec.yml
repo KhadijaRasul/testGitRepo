@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      - cd MaCmms/fiix-cmms-core/e2e
+  build:
+    commands:
+      - echo $FIIX_MASTER_DOMAIN
+      - echo $FIIX_ENVIRONMENT
+      - docker build --build-arg AWS_REGION=${AWS_DEFAULT_REGION} --no-cache -t fiix-e2e .
+      - docker run --name=fiix-e2e -e FIIX_MASTER_DOMAIN=$FIIX_MASTER_DOMAIN -e FIIX_ENVIRONMENT=$FIIX_ENVIRONMENT fiix-e2e
+  post_build:
+    commands:
+      - docker cp fiix-e2e:/home/ops/.npm/_logs results || true # its ok if this is not available
+      - docker cp fiix-e2e:/home/ops/e2e/Test/reports results || true # its ok if this is not available
+      - docker cp fiix-e2e:/home/ops/e2e/output results
+      - echo Test completed on `date`
+artifacts:
+  files:
+    - results/**/*
+  base-directory: MaCmms/fiix-cmms-core/e2e
